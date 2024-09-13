@@ -1,0 +1,99 @@
+/* MapComponent.css */
+
+/* Container for the map and driver details */
+.map-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    margin-top: 10px;
+    overflow: hidden; /* Prevent scrollbars */
+    gap: 10px; /* Space between map and details */
+}
+
+/* Map container */
+.map {
+    flex: 3;
+    position: relative;
+    border-radius: 10px;
+    margin-left: 10px;
+    overflow: hidden; /* Ensure map does not overflow */
+}
+
+/* Driver details container */
+.driver-details {
+    flex: 1;
+    padding: 20px;
+    background: #ffffff; /* Clean white background */
+    border-radius: 10px; /* Rounded corners for a modern look */
+    border: 1px solid #e0e0e0; /* Light border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    overflow-y: auto; /* Ensure scrollability */
+    display: flex;
+    margin-right: 10px;
+    flex-direction: column;
+    transition: all 0.3s ease; /* Smooth transition for changes */
+}
+
+/* Styling for the header */
+.driver-details h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.8em; /* Larger font size for the heading */
+    font-weight: 600; /* Slightly bolder font weight */
+    border-bottom: 2px solid #f1f1f1; /* Bottom border for separation */
+    padding-bottom: 10px; /* Padding for better spacing */
+}
+
+/* Styling for the paragraphs */
+.driver-details p {
+    color: #555; /* Darker gray text color */
+    font-size: 1em; /* Standard font size for text */
+    margin: 10px 0; /* Space between paragraphs */
+}
+
+/* Bold labels */
+.driver-details p strong {
+    color: #333; /* Dark color for labels */
+}
+
+/* Add some responsive behavior */
+@media (max-width: 768px) {
+    .map-container {
+        flex-direction: column;
+        gap: 0; /* No gap in vertical layout */
+    }
+
+    .map {
+        height: 60vh; /* Adjust map height */
+    }
+
+    .driver-details {
+        height: 40vh; /* Adjust driver details height */
+        border-left: none;
+        border-top: 1px solid #ddd; /* Border on top for separation */
+    }
+}
+
+@media (max-width: 480px) {
+    .map-container {
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .map {
+        height: 70vh; /* Adjust map height */
+    }
+
+    .driver-details {
+        height: 30vh; /* Adjust driver details height */
+        border-top: none; /* No top border on mobile */
+    }
+
+    .driver-details h2 {
+        font-size: 1.2em; /* Smaller font size on mobile */
+    }
+
+    .driver-details p {
+        font-size: 0.9em; /* Slightly smaller font size on mobile */
+    }
+}
