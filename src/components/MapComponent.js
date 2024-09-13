@@ -99,6 +99,16 @@ const MapComponent = () => {
                                     <p><strong>Latitude:</strong> {selectedDriver.driverLiveLocation.latitude}</p>
                                     <p><strong>Longitude:</strong> {selectedDriver.driverLiveLocation.longitude}</p>
                                     <p><strong>Address:</strong> {driverAddress}</p>
+                                    {selectedDriver.drivingLicense && (
+                                        <div>
+                                            <p><strong>Driving License:</strong></p>
+                                            <img
+                                                src={selectedDriver.drivingLicense}
+                                                alt="Driving License"
+                                                style={{ width: '100px', height: 'auto' }}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </InfoWindow>
                         )}
@@ -114,6 +124,16 @@ const MapComponent = () => {
                         <p><strong>Latitude:</strong> {selectedDriver.driverLiveLocation.latitude}</p>
                         <p><strong>Longitude:</strong> {selectedDriver.driverLiveLocation.longitude}</p>
                         <p><strong>Address:</strong> {driverAddress}</p>
+                        {selectedDriver.drivingLicense && (
+                            <div>
+                                <p><strong>Driving License:</strong></p>
+                                <img
+                                    src={selectedDriver.drivingLicense}
+                                    alt="Driving License"
+                                    style={{ width: '100px', height: 'auto' }}
+                                />
+                            </div>
+                        )}
                     </>
                 ) : (
                     <p>Select a driver to see details</p>
