@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './DriverTable.css'; // Import the CSS file for table styling
+import './DriverTable.css';
 
-const DriverTable = () => {
+const DriverTable = ({ onDriverSelect }) => {
     const [drivers, setDrivers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(10); // Number of items per page
+    const [itemsPerPage] = useState(10);
 
     useEffect(() => {
-        // Fetch driver locations from your API
-        axios.get('https://55kqzrxn-2011.inc1.devtunnels.ms/online-drivers') // Replace with your actual API endpoint
+        axios.get('https://55kqzrxn-2011.inc1.devtunnels.ms/online-drivers')
             .then(response => {
-                console.log('API Response:', response.data); // Log API response to check data
                 setDrivers(response.data.drivers);
             })
             .catch(error => {
@@ -19,17 +17,18 @@ const DriverTable = () => {
             });
     }, []);
 
-    // Calculate the indexes for the current page
     const indexOfLastDriver = currentPage * itemsPerPage;
     const indexOfFirstDriver = indexOfLastDriver - itemsPerPage;
     const currentDrivers = drivers.slice(indexOfFirstDriver, indexOfLastDriver);
 
-    // Handle page change
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    // Calculate total pages
+    const handleDriverClick = (driver) => {
+        onDriverSelect(driver);
+    };
+
     const totalPages = Math.ceil(drivers.length / itemsPerPage);
 
     return (
@@ -45,7 +44,7 @@ const DriverTable = () => {
                 </thead>
                 <tbody>
                     {currentDrivers.map(driver => (
-                        <tr key={driver.driverId}>
+                        <tr key={driver.driverId} onClick={() => handleDriverClick(driver)}>
                             <td>{driver.driverName}</td>
                             <td>{driver.phone}</td>
                             <td>{driver.driverLiveLocation.latitude}</td>

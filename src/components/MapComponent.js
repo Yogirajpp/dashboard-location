@@ -1,31 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
-import './MapComponent.css'; // Import the CSS file
+import './MapComponent.css';
 
-// Map container style
 const mapContainerStyle = {
     height: '100%',
     width: '100%'
 };
 
-// Center position of the map
 const center = {
-    lat: 23.031129, // Default center
+    lat: 23.031129,
     lng: 72.529016
 };
 
-const MapComponent = () => {
+const MapComponent = ({ selectedDriver, onDriverSelect }) => {
     const [drivers, setDrivers] = useState([]);
-    const [selectedDriver, setSelectedDriver] = useState(null);
     const [driverAddress, setDriverAddress] = useState('');
     const [infoWindowPosition, setInfoWindowPosition] = useState(null);
 
     useEffect(() => {
-        // Fetch driver locations from your API
-        axios.get('https://55kqzrxn-2011.inc1.devtunnels.ms/online-drivers') // Replace with your actual API endpoint
+        axios.get('https://55kqzrxn-2011.inc1.devtunnels.ms/online-drivers')
             .then(response => {
-                console.log('API Response:', response.data); // Log API response to check data
                 const drivers = response.data.drivers.map(driver => ({
                     ...driver,
                     driverLiveLocation: {
@@ -40,33 +35,32 @@ const MapComponent = () => {
             });
     }, []);
 
-    const handleMarkerClick = async (driver) => {
-        setSelectedDriver(driver);
-        const { latitude, longitude } = driver.driverLiveLocation;
+    useEffect(() => {
+        if (selectedDriver) {
+            const { latitude, longitude } = selectedDriver.driverLiveLocation;
 
-        // Ensure that latitude and longitude are numbers
-        if (isNaN(latitude) || isNaN(longitude)) {
-            console.error('Invalid latitude or longitude values');
-            return;
-        }
-
-        try {
-            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`);
-            const results = response.data.results;
-
-            if (results && results.length > 0) {
-                const address = results[0].formatted_address;
-                setDriverAddress(address);
-            } else {
-                setDriverAddress('Address not found');
+            if (isNaN(latitude) || isNaN(longitude)) {
+                console.error('Invalid latitude or longitude values');
+                return;
             }
-        } catch (error) {
-            console.error('Error fetching address:', error);
-            setDriverAddress('Error fetching address');
-        }
 
-        setInfoWindowPosition({ lat: latitude, lng: longitude });
-    };
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
+                .then(response => {
+                    const results = response.data.results;
+                    if (results && results.length > 0) {
+                        setDriverAddress(results[0].formatted_address);
+                    } else {
+                        setDriverAddress('Address not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching address:', error);
+                    setDriverAddress('Error fetching address');
+                });
+
+            setInfoWindowPosition({ lat: latitude, lng: longitude });
+        }
+    }, [selectedDriver]);
 
     return (
         <div className="map-container">
@@ -84,7 +78,7 @@ const MapComponent = () => {
                                     lat: driver.driverLiveLocation.latitude,
                                     lng: driver.driverLiveLocation.longitude
                                 }}
-                                onClick={() => handleMarkerClick(driver)}
+                                onClick={() => onDriverSelect(driver)}
                             />
                         ))}
 
@@ -115,6 +109,7 @@ const MapComponent = () => {
                     </GoogleMap>
                 </LoadScript>
             </div>
+
             <div className="driver-details">
                 {selectedDriver ? (
                     <>
