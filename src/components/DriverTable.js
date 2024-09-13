@@ -36,6 +36,7 @@ const DriverTable = ({ onDriverSelect }) => {
             <table className="driver-table">
                 <thead>
                     <tr>
+                        <th>S.No.</th> {/* Added Serial Number Column */}
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Latitude</th>
@@ -43,8 +44,9 @@ const DriverTable = ({ onDriverSelect }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentDrivers.map(driver => (
+                    {currentDrivers.map((driver, index) => (
                         <tr key={driver.driverId} onClick={() => handleDriverClick(driver)}>
+                            <td>{indexOfFirstDriver + index + 1}</td> {/* Serial Number */}
                             <td>{driver.driverName}</td>
                             <td>{driver.phone}</td>
                             <td>{driver.driverLiveLocation.latitude}</td>
