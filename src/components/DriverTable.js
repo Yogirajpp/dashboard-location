@@ -41,6 +41,7 @@ const DriverTable = ({ onDriverSelect }) => {
                         <th>Phone</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
+                        <th>Driving Licence</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,7 @@ const DriverTable = ({ onDriverSelect }) => {
                             <td>{driver.phone}</td>
                             <td>{driver.driverLiveLocation.latitude}</td>
                             <td>{driver.driverLiveLocation.longitude}</td>
+                            <td><a href={driver.drivingLicense} target="_blank" rel="noopener noreferrer">{driver.drivingLicense}</a></td>
                         </tr>
                     ))}
                 </tbody>

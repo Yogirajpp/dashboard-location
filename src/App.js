@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MapComponent from './components/MapComponent';
 import DriverTable from './components/DriverTable';
+import GeoMetrics from './components/GeoMetrics';
 
 function App() {
     const [selectedDriver, setSelectedDriver] = useState(null);
@@ -18,6 +19,10 @@ function App() {
     return (
         <div className="App">
             <MapComponent
+                selectedDriver={selectedDriver}
+                onDriverSelect={handleDriverSelect}
+            />
+            <GeoMetrics
                 selectedDriver={selectedDriver}
                 onDriverSelect={handleDriverSelect}
             />

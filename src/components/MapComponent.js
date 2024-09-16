@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import axios from 'axios';
+import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import './MapComponent.css';
 
 const mapContainerStyle = {
@@ -18,6 +19,7 @@ const MapComponent = ({ selectedDriver, onDriverSelect }) => {
     const [driverAddress, setDriverAddress] = useState('');
     const [infoWindowPosition, setInfoWindowPosition] = useState(null);
 
+    // Fetch online drivers
     useEffect(() => {
         axios.get('https://55kqzrxn-2011.inc1.devtunnels.ms/online-drivers')
             .then(response => {
@@ -35,6 +37,7 @@ const MapComponent = ({ selectedDriver, onDriverSelect }) => {
             });
     }, []);
 
+    // Fetch driver's address based on selected driver's location
     useEffect(() => {
         if (selectedDriver) {
             const { latitude, longitude } = selectedDriver.driverLiveLocation;
@@ -70,6 +73,17 @@ const MapComponent = ({ selectedDriver, onDriverSelect }) => {
                         mapContainerStyle={mapContainerStyle}
                         center={center}
                         zoom={12}
+                        onLoad={(map) => {
+                            // Create markers for clustering
+                            const markers = drivers.map(driver => new window.google.maps.Marker({
+                                position: {
+                                    lat: driver.driverLiveLocation.latitude,
+                                    lng: driver.driverLiveLocation.longitude
+                                },
+                                title: driver.driverName
+                            }));
+                            new MarkerClusterer({ map, markers });
+                        }}
                     >
                         {drivers.map(driver => (
                             <Marker
