@@ -1,0 +1,62 @@
+/* Container for the entire statistics section */
+.statistics-container {
+    padding: 20px;
+    margin: 0 auto; /* Center align the container horizontally */
+}
+
+/* Container for period selection dropdown */
+.period-select {
+    margin-bottom: 20px; /* Space below the period selection */
+    /* display: flex; */
+    
+    max-width: 600px; /* Set maximum width */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+/* Style for the period selection label */
+.period-select label {
+    margin-right: 10px; /* Space between label and dropdown */
+    font-size: 1rem; /* Adjust font size as needed */
+}
+
+/* Style for the period selection dropdown */
+.period-select select {
+    font-size: 1rem; /* Adjust font size as needed */
+    padding: 5px; /* Add padding for better appearance */
+   /* Allow the dropdown to take up remaining space */
+}
+
+
+/* Parent container to hold multiple graphs side by side */
+.graphs-wrapper {
+    display: flex;
+    justify-content: space-between; /* Space between graphs */
+    gap: 20px; /* Adds some space between graphs */
+    padding: 20px;
+}
+
+/* Container for each individual graph */
+.ride-statistics-container {
+    flex: 1; /* Allow containers to grow and shrink as needed */
+    max-width: 50%; /* Ensure each container does not exceed 50% of the parent width */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensure padding is included in the element's width */
+    display: flex;
+    flex-direction: column; /* Align children elements vertically */
+    align-items: center; /* Center align children horizontally */
+}
+
+/* Title for each chart */
+.chart-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem; /* Adjust font size as needed */
+}
+
+/* Container for the chart itself */
+.chart-container {
+    height: 400px; /* Fix the height of the chart */
+    width: 100%; /* Ensure the chart container takes full width */
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MapComponent from './components/MapComponent';
 import DriverTable from './components/DriverTable';
 import GeoMetrics from './components/GeoMetrics';
+import RideStatistics from './components/statistics';
 
 function App() {
     const [selectedDriver, setSelectedDriver] = useState(null);
@@ -22,11 +23,12 @@ function App() {
                 selectedDriver={selectedDriver}
                 onDriverSelect={handleDriverSelect}
             />
+            <DriverTable onDriverSelect={handleDriverSelect} />
             <GeoMetrics
                 selectedDriver={selectedDriver}
                 onDriverSelect={handleDriverSelect}
             />
-            <DriverTable onDriverSelect={handleDriverSelect} />
+            <RideStatistics />
         </div>
     );
 }
