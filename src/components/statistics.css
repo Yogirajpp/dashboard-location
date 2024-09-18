@@ -44,6 +44,10 @@
     align-items: stretch; /* Stretch children horizontally to fit the container */
 }
 
+.ride-statistics-container h3 {
+    margin-left: 10px;
+}
+
 /* Title for each chart */
 .chart-title {
     text-align: center;
